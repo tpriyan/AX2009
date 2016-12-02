@@ -1,0 +1,588 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: CLS
+
+; Microsoft Dynamics AX Class: KBGetObjectList unloaded
+; --------------------------------------------------------------------------------
+  CLSVERSION 1
+  
+  CLASS #KBGetObjectList
+    Id 50164
+    PROPERTIES
+      Name                #KBGetObjectList
+      Extends             #
+      RunOn               #Called from
+    ENDPROPERTIES
+    
+    METHODS
+      Version: 3
+      SOURCE #displayAll
+        #void displayAll()
+        #{
+        #    Listenumerator classEnumberator;
+        #    Listenumerator tableEnumberator;
+        #    Listenumerator formEnumberator;
+        #    Listenumerator menuEnumberator;
+        #    Listenumerator reportEnumberator;
+        #    Listenumerator reportdisplayMenuItems;
+        #    Listenumerator edtEnumerator;
+        #    Listenumerator baseenumEnumerator;
+        #    Listenumerator configEnumerator;
+        #    Listenumerator mapsenumerator;
+        #    str s1;
+        #    ;
+        #
+        #    classEnumberator = classes.getEnumerator();
+        #    Info("Classes");
+        #
+        #    while(classEnumberator.moveNext())
+        #    {
+        #        s1 = classEnumberator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    tableEnumberator = tables.getEnumerator();
+        #    Info("Tables");
+        #
+        #    while(tableEnumberator.moveNext())
+        #    {
+        #        s1 = tableEnumberator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    formEnumberator = forms.getEnumerator();
+        #    Info("Forms");
+        #
+        #    while(formEnumberator.moveNext())
+        #    {
+        #        s1 = formEnumberator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    menuEnumberator = menus.getEnumerator();
+        #    Info("Menus");
+        #
+        #    while(menuEnumberator.moveNext())
+        #    {
+        #        s1 = menuEnumberator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #     reportEnumberator = reports.getEnumerator();
+        #    Info("Reports");
+        #
+        #    while(reportEnumberator.moveNext())
+        #    {
+        #        s1 = reportEnumberator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    reportdisplayMenuItems = displayMenuItems.getEnumerator();
+        #    Info("Display menu items");
+        #
+        #    while(reportdisplayMenuItems.moveNext())
+        #    {
+        #        s1 = reportdisplayMenuItems.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    baseenumEnumerator = BaseEnums.getEnumerator();
+        #    Info("Base enums");
+        #
+        #    while(baseenumEnumerator.moveNext())
+        #    {
+        #        s1 = baseenumEnumerator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    edtEnumerator = edt.getEnumerator();
+        #    Info("EDT");
+        #
+        #    while(edtEnumerator.moveNext())
+        #    {
+        #        s1 = edtEnumerator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    configEnumerator = configkeys.getEnumerator();
+        #    Info("Configkeys");
+        #
+        #    while(configEnumerator.moveNext())
+        #    {
+        #        s1 = configEnumerator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #    mapsEnumerator = maps.getEnumerator();
+        #    Info("Maps");
+        #
+        #    while(mapsEnumerator.moveNext())
+        #    {
+        #        s1 = mapsEnumerator.current();
+        #        Info(s1);
+        #
+        #    }
+        #
+        #}
+      ENDSOURCE
+      SOURCE #exists
+        #boolean exists(List _s, str _value)
+        #{
+        #    ListEnumerator le;
+        #    boolean exists1 = false;
+        #    str s1;
+        #    ;
+        #
+        #    le = _s.getEnumerator();
+        #
+        #    while(le.moveNext())
+        #    {
+        #        s1 = le.current();
+        #        if(s1 == _value)
+        #        {
+        #            exists1 = true;
+        #            break;
+        #        }
+        #
+        #    }
+        #
+        #    return exists1;
+        #
+        #
+        #}
+      ENDSOURCE
+      SOURCE #run
+        #void run()
+        #{
+        #    ;
+        #
+        #    this.readFile();
+        #    //this.displayAll();
+        #    this.addtoProject();
+        #}
+      ENDSOURCE
+      SOURCE #addtoProject
+        #void addtoProject()
+        #{
+        #    Listenumerator classEnumberator;
+        #    Listenumerator tableEnumberator;
+        #    Listenumerator formEnumberator;
+        #    Listenumerator menuEnumberator;
+        #    Listenumerator reportEnumberator;
+        #    Listenumerator reportdisplayMenuItems;
+        #    Listenumerator edtEnumerator;
+        #    Listenumerator baseenumEnumerator;
+        #    Listenumerator configEnumerator;
+        #    Listenumerator mapsenumerator;
+        #    str s1;
+        #    #AOT
+        #    Treenode node;
+        #;
+        #
+        #
+        #
+        #
+        #    projectNode = SysTreeNode::getSharedProject().AOTfindChild("ABC");
+        #
+        #    classEnumberator = classes.getEnumerator();
+        #    //Info("Classes");
+        #
+        #    while(classEnumberator.moveNext())
+        #    {
+        #        s1 = classEnumberator.current();
+        #        node = TreeNode::findNode(#ClassesPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#ClassesPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Class %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    tableEnumberator = tables.getEnumerator();
+        #    //Info("Tables");
+        #
+        #    while(tableEnumberator.moveNext())
+        #    {
+        #       s1 = tableEnumberator.current();
+        #        node = TreeNode::findNode(#TablesPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#TablesPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Table %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    formEnumberator = forms.getEnumerator();
+        #    //Info("Forms");
+        #
+        #    while(formEnumberator.moveNext())
+        #    {
+        #        s1 = formEnumberator.current();
+        #        node = TreeNode::findNode(#FormsPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#FormsPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Form %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    menuEnumberator = menus.getEnumerator();
+        #   // Info("Menus");
+        #
+        #    while(menuEnumberator.moveNext())
+        #    {
+        #        s1 = menuEnumberator.current();
+        #        node = TreeNode::findNode(#MenusPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#MenusPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Menu %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #     reportEnumberator = reports.getEnumerator();
+        #    //Info("Reports");
+        #
+        #    while(reportEnumberator.moveNext())
+        #    {
+        #        s1 = reportEnumberator.current();
+        #        node = TreeNode::findNode(#ReportsPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#ReportsPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Report %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    reportdisplayMenuItems = displayMenuItems.getEnumerator();
+        #    //Info("Display menu items");
+        #
+        #    while(reportdisplayMenuItems.moveNext())
+        #    {
+        #        s1 = reportdisplayMenuItems.current();
+        #        node = TreeNode::findNode(#MenuItemsDisplayPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#MenuItemsDisplayPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Display menu item %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    baseenumEnumerator = BaseEnums.getEnumerator();
+        #  //  Info("Base enums");
+        #
+        #    while(baseenumEnumerator.moveNext())
+        #    {
+        #        s1 = baseenumEnumerator.current();
+        #        node = TreeNode::findNode(#BaseEnumsPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#BaseEnumsPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Base enum %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    edtEnumerator = edt.getEnumerator();
+        #    //Info("EDT");
+        #
+        #    while(edtEnumerator.moveNext())
+        #    {
+        #        s1 = edtEnumerator.current();
+        #        node = TreeNode::findNode(#ExtendedDataTypesPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#ExtendedDataTypesPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("EDT %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    configEnumerator = configkeys.getEnumerator();
+        #    //Info("Configkeys");
+        #
+        #    while(configEnumerator.moveNext())
+        #    {
+        #        s1 = configEnumerator.current();
+        #        node = TreeNode::findNode(#ConfigurationKeysPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#ConfigurationKeysPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Config key %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #
+        #    mapsEnumerator = maps.getEnumerator();
+        #   // Info("Maps");
+        #
+        #    while(mapsEnumerator.moveNext())
+        #    {
+        #        s1 = mapsEnumerator.current();
+        #        node = TreeNode::findNode(#TableMapsPath).AOTfindChild(s1);
+        #        if(node)
+        #        {
+        #            projectNode.addNode(TreeNode::findNode(#TableMapsPath).AOTfindChild(s1));
+        #            projectNode.AOTsave();
+        #        }
+        #        else
+        #        {
+        #            info(strfmt("Map %1 does not exist in AOT", s1));
+        #        }
+        #
+        #    }
+        #}
+      ENDSOURCE
+      SOURCE #readFile
+        #void readFile()
+        #{
+        #    TextIo io = new TextIo("C:\\Users\\Administrator\\Desktop\\New Text Document.txt", "r");
+        #    container c;
+        #
+        #
+        #    str s;
+        #    int pos;
+        #    listenumerator r;
+        #    ;
+        #
+        #    classes = new List(TYpes::String);
+        #    tables = new List(TYpes::String);
+        #    forms = new List(TYpes::String);
+        #    menus = new List(TYpes::String);
+        #    reports = new List(TYpes::String);
+        #    displayMenuItems = new List(TYpes::String);
+        #    BaseEnums = new List(TYpes::String);
+        #    edt = new List(TYpes::String);
+        #    configkeys = new List(TYpes::String);
+        #    maps = new List(TYpes::String);
+        #
+        #    io.inFieldDelimiter("/");
+        #    c = io.read();
+        #
+        #    while(conlen(c) > 0)
+        #    {
+        #        if(conpeek(c,2) == "classes")
+        #        {
+        #            s = conpeek(c,3);
+        #            pos = strfind(s ,".",1,strlen(s));
+        #            s= substr(s, 1, pos-1 );
+        #            if(!this.exists(classes, s))
+        #                classes.addEnd(s);
+        #        }
+        #
+        #        else if(conpeek(c,2) == "data dictionary")
+        #        {
+        #            s = conpeek(c,3);
+        #
+        #            if(conpeek(c,3) == "tables")
+        #            {
+        #                s = conpeek(c,4);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(tables, s))
+        #                    tables.addEnd(s);
+        #            }
+        #
+        #            else if(conpeek(c,3) == "base enums")
+        #            {
+        #                 s = conpeek(c,4);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(BaseEnums, s))
+        #                    BaseEnums.addEnd(s);
+        #            }
+        #
+        #            else if(conpeek(c,3) == "extended data types")
+        #            {
+        #                s = conpeek(c,4);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(edt, s))
+        #                    edt.addEnd(s);
+        #            }
+        #
+        #            else if(conpeek(c,3) == "maps")
+        #            {
+        #                s = conpeek(c,4);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(maps, s))
+        #                    maps.addEnd(s);
+        #            }
+        #
+        #            else if(conpeek(c,3) == "configuration keys")
+        #            {
+        #                s = conpeek(c,4);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(configkeys, s))
+        #                    configkeys.addEnd(s);
+        #            }
+        #
+        #            else
+        #            {
+        #                info("error");
+        #            }
+        #        }
+        #        else if(conpeek(c,2) == "forms")
+        #        {
+        #                s = conpeek(c,3);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(forms, s))
+        #                    forms.addEnd(s);
+        #        }
+        #
+        #        else if(conpeek(c,2) == "menus")
+        #        {
+        #                s = conpeek(c,3);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(menus, s))
+        #                    menus.addEnd(s);
+        #        }
+        #
+        #        else if(conpeek(c,2) == "reports")
+        #        {
+        #            s = conpeek(c,3);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(reports, s))
+        #                    reports.addEnd(s);
+        #        }
+        #
+        #        else if(conpeek(c,2) == "menu items")
+        #        {
+        #            if(conpeek(c,3) == "display")
+        #            {
+        #                s = conpeek(c,4);
+        #                pos = strfind(s ,".",1,strlen(s));
+        #                s= substr(s, 1, pos-1 );
+        #                if(!this.exists(displayMenuItems, s))
+        #                    displayMenuItems.addEnd(s);
+        #            }
+        #        }
+        #
+        #        else
+        #        {
+        #            info("error");
+        #        }
+        #
+        #         c = io.read();
+        #    }
+        #
+        #
+        #
+        #
+        #
+        #
+        #
+        #}
+      ENDSOURCE
+      SOURCE #main
+        #public static void main(Args _args)
+        #{
+        #    KBGetObjectList KBGetObjectList;
+        #    ;
+        #
+        #    KBGetObjectList = new KBGetObjectList();
+        #
+        #    KBGetObjectList.run();
+        #}
+      ENDSOURCE
+      SOURCE #classDeclaration
+        #class KBGetObjectList
+        #{
+        #    List classes;
+        #    List tables;
+        #    List forms;
+        #    List menus;
+        #    List reports;
+        #    List displayMenuItems;
+        #    List BaseEnums;
+        #    List edt;
+        #    List configkeys;
+        #    List maps;
+        #    //List BaseEnums;
+        #    ProjectNode projectNode;
+        #}
+      ENDSOURCE
+    ENDMETHODS
+  ENDCLASS
+
+***Element: PRN
+
+; Microsoft Dynamics AX Project : GetObjectList_KB unloaded
+; --------------------------------------------------------------------------------
+  PROJECTVERSION 2
+  
+  PROJECT #GetObjectList_KB
+   PRIVATE
+  PROPERTIES
+    Name                #GetObjectList_KB
+  ENDPROPERTIES
+  
+    PROJECTCLASS ProjectNode
+    BEGINNODE
+      FILETYPE 0
+      UTILTYPE 45
+      UTILOBJECTID 50164
+      NODETYPE 329
+      NAME #KBGetObjectList
+    ENDNODE
+  ENDPROJECT
+  
+
+***Element: END
